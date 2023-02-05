@@ -1,0 +1,15 @@
+{
+  "name": "ecommerce-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup": "cd client && npm i && cp .env.example .env && cd ../server && npm i && cp .env.example .env && db:create",
+    "start": "concurrently \"npm run start --prefix ./server\" \"npm run start --prefix ./client\" --kill-others"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
