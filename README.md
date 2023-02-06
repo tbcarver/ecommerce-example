@@ -1,5 +1,15 @@
 # eCommerce Example using React and NestJs
 
+## To Setup
+`npm run setup'
+
+## To Start
+`npm run start`
+
+## To Rebuild the Database
+from server directory
+`npm run db:create`
+
 ## To Debug in VSCode
 * Create a Node: Launch via NPM configuration using `npm run start`
 ```
