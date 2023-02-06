@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Req, Get } from '@nestjs/common';
+import { Controller, UseGuards, Req, Get, Query } from '@nestjs/common';
 import { InventoryItem } from './inventoryItem.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,12 +17,12 @@ export class InventoryItemController {
   ) { }
 
   @Get()
-  async getInventoryItems(@Req() req: any) {
+  async getInventoryItems(@Req() req: any, @Query('sku') sku: string) {
     const product = new Product();
     product.user = new User(req.user.userId);
 
     const inventoryItems = await this.inventoryItemRepository.find({
-      where: { product },
+      where: { product, sku },
       relations: ['product'],
     });
 
