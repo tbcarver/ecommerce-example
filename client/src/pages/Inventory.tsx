@@ -1,14 +1,37 @@
-import React from 'react';
-import useGet from '../hooks/useGet';
+import React, { useEffect, useState } from 'react';
 import MessageBox from '../components/MessageBox';
+import axios from 'axios';
 
 const Inventory = () => {
-  const {
-    data: inventoryItems,
-    isPending,
-    error,
-  }: any = useGet(`${process.env.REACT_APP_SERVER_HOST}/inventory`);
+  const [skuParameter, setSkuParameter] = useState('');
+  const [data, setData] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchClicked, setSearchCliked] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        console.log('getting...');
+        let getInventoryUrl = `${process.env.REACT_APP_SERVER_HOST}/inventory`;
+        getInventoryUrl += skuParameter ? `?sku=${skuParameter}` : '';
+        const token = localStorage.getItem('token');
+        const response = await axios.get(getInventoryUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setData(response.data);
+        setIsPending(false);
+        setError(null);
+      } catch (error: any) {
+        setError(error.message);
+        setIsPending(false);
+        console.error(error.message);
+      }
+    })();
+  }, [searchClicked]);
 
   return (
     <div>
@@ -16,14 +39,16 @@ const Inventory = () => {
       <MessageBox type='danger' message={error} />
       {isPending && <div>loading...</div>}
 
-      {inventoryItems && (
+      {data && (
         <div>
           <div className="container text-center">
             <div className="row justify-content-center">
               <div className="col-4">
                 <div className="input-group mb-3">
-                  <input type="text" className="form-control" placeholder="Search by SKU" />
-                  <button className="btn btn-outline-secondary" type="button">Search</button>
+                  <input type="text" className="form-control" placeholder="Search by SKU"
+                    value={skuParameter} onChange={(event) => setSkuParameter(event.target.value)} />
+                  <button className="btn btn-outline-secondary" type="button"
+                    onClick={() => setSearchCliked(!searchClicked)}>Search</button>
                 </div>
               </div>
             </div>
@@ -42,7 +67,7 @@ const Inventory = () => {
               </tr>
             </thead>
             <tbody>
-              {inventoryItems.map((inventoryItem: any) => (
+              {data.map((inventoryItem: any) => (
                 <tr key={inventoryItem.id}>
                   <td>{inventoryItem.product.productName}</td>
                   <td>{inventoryItem.sku}</td>

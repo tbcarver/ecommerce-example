@@ -9,6 +9,7 @@ function useGet(url: any) {
   useEffect(() => {
     (async () => {
       try {
+        console.log('getting...');
         const token = localStorage.getItem('token');
         const response = await axios.get(url, {
           headers: {

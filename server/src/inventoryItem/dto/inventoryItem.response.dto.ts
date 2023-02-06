@@ -4,6 +4,9 @@ import { ProductResponseDto } from 'src/product/dto/product.response.dto';
 @Exclude()
 export class InventoryItemResponseDto {
   @Expose()
+  id: number;
+
+  @Expose()
   @Type(() => ProductResponseDto)
   product: ProductResponseDto;
 
