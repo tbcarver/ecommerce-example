@@ -2,7 +2,7 @@ import React from 'react';
 import useGet from '../hooks/useGet';
 import MessageBox from '../components/MessageBox';
 
-const Products = () => {
+function Products() {
   const {
     data: products,
     isPending,

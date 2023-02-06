@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import MessageBox from '../components/MessageBox';
 
-const Login = () => {
+function Login() {
   const [email, setEmail] = useState('winnie.selzer@barmail.com');
   const [password, setPassword] = useState('1234');
   const [loading, setLoading] = useState(false);

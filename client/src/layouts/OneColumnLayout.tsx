@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OneColumnLayout = ({ children }: any) => {
+function OneColumnLayout({ children }: any) {
   return (
     <div>
       <main>

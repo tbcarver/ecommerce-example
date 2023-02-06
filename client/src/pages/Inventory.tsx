@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MessageBox from '../components/MessageBox';
 import axios from 'axios';
 
-const Inventory = () => {
+function Inventory() {
   const [skuParameter, setSkuParameter] = useState('');
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
