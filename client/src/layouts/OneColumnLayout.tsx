@@ -15,7 +15,7 @@ const OneColumnLayout = ({ children }: any) => {
         </div>
       </main>
 
-      <footer className="bg-dark mt-5 p-2">
+      <footer className="mt-5 p-2">
         <div className="container">
           <div className="text-center text-muted">
             &copy; eCommerce 2023
