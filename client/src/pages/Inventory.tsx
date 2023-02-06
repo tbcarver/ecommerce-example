@@ -3,10 +3,11 @@ import MessageBox from '../components/MessageBox';
 import axios from 'axios';
 
 function Inventory() {
-  const [skuParameter, setSkuParameter] = useState('');
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [skuParameter, setSkuParameter] = useState('');
   const [searchClicked, setSearchCliked] = useState(false);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function Inventory() {
         console.error(error.message);
       }
     })();
-  }, [searchClicked]);
+  }, [pageNumber, searchClicked]);
 
   return (
     <div>
@@ -80,6 +81,14 @@ function Inventory() {
               ))}
             </tbody>
           </table>
+          {/* <nav>
+            <ul className="pagination">
+              <li className="page-item"><button className="page-link"
+                onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1} >Previous</button></li>
+              <li className="page-item"><button className="page-link"
+                onClick={() => setPageNumber(pageNumber + 1)} disabled={pageNumber * limit >= total}>Next</button></li>
+            </ul>
+          </nav> */}
         </div>
       )}
     </div>
