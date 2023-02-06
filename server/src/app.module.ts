@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AuthModule } from './auth/auth.module';
+import { InventoryItemModule } from './inventoryItem/inventoryItem.module';
 import { ProductModule } from './product/product.module';
 import { DataSource } from 'typeorm';
 
@@ -26,6 +27,7 @@ import { DataSource } from 'typeorm';
     },
   }),
     AuthModule,
+    InventoryItemModule,
     ProductModule,
   ],
   controllers: [],

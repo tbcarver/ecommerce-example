@@ -1,10 +1,11 @@
-import { Controller, Delete, Param, HttpException, HttpStatus, UseGuards, Post, Body, Req, Get, Res } from '@nestjs/common';
-import { Product } from './product.entity';
+import { Controller, UseGuards, Req, Get } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.gaurd';
+import { Product } from './product.entity';
 import { User } from '../user/user.entity';
-// import { PostDto } from './dto/post.dto';
+import { ProductResponseDto } from './dto/product.response.dto';
 
 @Controller('products')
 @UseGuards(JwtAuthGuard)
@@ -19,29 +20,7 @@ export class ProductController {
     const user = new User();
     user.id = req.user.userId;
     const products = await this.productRepository.find({ where: { user } });
-    return products;
+
+    return plainToInstance(ProductResponseDto, products);
   }
-
-  // @Post()
-  // async createPost(@Body() postDto: PostDto, @Req() req: any) {
-  //   const post = new PostEntity();
-  //   post.text = postDto.text;
-  //   post.title = postDto.title;
-  //   post.userId = req.user.userId;
-  //   await this.postRepository.save(post);
-  //   return { message: 'Post created successfully.' };
-  // }
-
-  // @Delete(':id')
-  // async deletePost(@Param('id') id: number, @Req() req: any) {
-  //   const post = await this.postRepository.findOne({ where: { id } });
-  //   if (!post) {
-  //     throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
-  //   }
-  //   if (post.userId !== req.user.userId) {
-  //     throw new HttpException('You do not have permission to delete this post', HttpStatus.UNAUTHORIZED);
-  //   }
-  //   await this.postRepository.delete({ id });
-  //   return { message: 'Post deleted successfully' };
-  // }
 }
