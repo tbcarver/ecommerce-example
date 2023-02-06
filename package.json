@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "cd client && npm i && cp .env.example .env && cd ../server && npm i && cp .env.example .env && db:create",
+    "setup": "npm i && cd client && npm i && cp .example.env .env && cd ../server && npm i && cp .example.env .env && npm run db:create",
     "start": "concurrently \"npm run start --prefix ./server\" \"npm run start --prefix ./client\" --kill-others"
   },
   "author": "",
